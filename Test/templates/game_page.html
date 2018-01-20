@@ -35,17 +35,16 @@
                 <input type="submit" value="Add!">
             </form>
         </div>
-
     </div>
     <div class="tab">
-    <ul>
         {% for char in chars %}
-            <li><a href="/character/{{ char.id }}">{{ char }}</a></li>
+            <button class="tablinks">
+            <a href="/character/{{ char.id }}">{{ char }}</a>
+            </button>
         {% endfor %}
-    </ul>
     </div>
 
-    <div>
+    <div class="master_stats">
         <ul>
             <li>Games Played: {{ games_played }}</li>
             <li>Wins: {{ wins.wins__sum }}</li>
