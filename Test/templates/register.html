@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Stat Smash</title>
+
+    <meta name="authStator" content="your name" />
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="{% static "admin/css/main.css" %}" type="text/css" />
 </head>
 <body>
+
+
+    <div class="login">
+        <img class="loginImg" src="{% static "admin/img/Stat Smash.png" %}" width="200" height= "200" alt="Stat Smash Logo">
+        <h1>Stat Smash</h1>
     <form action="/register/" method="post">
         {% csrf_token %}
         <label for="username">Username: </label>
         <input id="username" type="text" name="username" required><br>
 
-        <label for="email">Email: </label>
+        <label for="email">Email Address: </label>
         <input id="email" type="email" name="email" required><br>
 
         <label for="password">Password: </label>
@@ -24,5 +36,6 @@
 
         <input type="submit" value="Submit">
     </form>
+        </div>
 </body>
 </html>
