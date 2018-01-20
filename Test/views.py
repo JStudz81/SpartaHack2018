@@ -18,7 +18,7 @@ def index(request):
         games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
 
 
-        return render(request, 'stat_form.html', {'games': games})
+        return render(request, 'index.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
@@ -121,7 +121,7 @@ def character_view(request, character_id):
     return HttpResponseRedirect('/')
 
 
-def stat_form(request):
+def stat_form(request, character_id):
 
     if request.method == 'POST':
 
@@ -132,23 +132,10 @@ def stat_form(request):
         dam_taken = request.POST['damage taken']
 
         q = Stat(wins=wins, kills=kills, deaths=deaths, damage_dealt=dam_given, damage_received=dam_taken)
-        q.user = username
-        q.char = character
+        q.char_inst.id = character_id
         q.save()
 
         return render(request, 'game_page.html', {'game': game})
 
-"""
-        form = CharUpdateForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            char.health = form.cleaned_data['health']
-
-            char.save()
-
-            return HttpResponseRedirect('/' + character_id)
-
-"""
+    else:
+        render(request, 'stat_form.html', {'character_id': character_id})
