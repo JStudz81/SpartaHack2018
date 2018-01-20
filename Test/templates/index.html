@@ -23,9 +23,10 @@
                 <a href="/logout/">Logout</a>
         </div>
         <div class="sidenav">
-            <a href="#">Super Smash Bros.</a>
-            <a href="#">Rainbow 6 Siege</a>
-            <a href="#">Add New Game</a>
+            {% for game in games %}
+                <a href="/{{ game.game_title }}">{{ game.game_title }}.</a>
+            {% endfor %}
+            <a href="/addGame/">+ Add Game</a>
         </div>
         <div id="content">
             <h2>Home</h2>
@@ -35,6 +36,8 @@
             <p>
                 Stat Smash is a website designed to keep track of you and your friends statistics across multiple games and platforms. Simply add a game in the menus and begin to record data such as win/loss, kill/death, damage given, damage taken, and even specific data for each character!
             </p>
+
+
         </div>
         <div id="footer">
             <p>
