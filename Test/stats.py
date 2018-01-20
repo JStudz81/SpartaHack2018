@@ -35,11 +35,25 @@ def total_kills(char_or_user):
         return kills
 
 def total_kills_b(char, user):
+    char = Character.objects.get(name=char)
+    user = User.objects.get(username=user)
     m = Stat.objects.filter(char_inst__char=char).filter(char_inst__user=user).all()
     kills = m.aggregate(Sum('kills'))
     kills = kills['kills__sum']
     return kills
 
+'''
+Calculates the K/D Ratio of a certain character for a user
+'''
+def kd_ratio(char, user):
+    char = Character.objects.get(name=char)
+    user = User.objects.get(username=user)
+    m = Stat.objects.filter(char_inst__char=char).filter(char_inst__user=user).all()
+    kills = m.aggregate(Sum('kills'))
+    deaths = m.aggregate(Sum('deaths'))
+    kills = kills['kills__sum']
+    deaths = deaths['deaths__sum']
+    return round(kills/deaths, 3)
 
 '''
 Calculates total amount of wins per user of character
