@@ -30,8 +30,6 @@ class CharInst(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='users')
     char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='char_insts')
 
-    char_inst = [user, char]
-
     def __str__(self):
         return self.user.username + ": " + self.char.name
         #return self.char_inst
@@ -46,5 +44,5 @@ class Stat(models.Model):
     deaths = models.PositiveIntegerField(default=0)
     damage_dealt = models.PositiveIntegerField(default=0)
     damage_received = models.PositiveIntegerField(default=0)
-    char_inst = models.ForeignKey(CharInst, on_delete=models.CASCADE)
+    char_inst = models.ForeignKey(CharInst, on_delete=models.CASCADE, related_name='stats')
     time_stamp = timezone.now()
