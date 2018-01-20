@@ -1,13 +1,13 @@
 from django.db import models
-
-class User(models.Model):
-    username = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.username
+from django.contrib.auth.models import User
 
 class Character(models.Model):
+
     name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
     #game_id = models.ForeignKey('GameTitle', on_delete = models.CASCADE)
 
 #class GameTitle(models.Model):
@@ -16,7 +16,7 @@ class Character(models.Model):
 ### INSTANCES ###
 
 class CharInst(models.Model):
-    user_id = models.ForeignKey('User', on_delete = models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
     #game_id = models.ForeignKey('GameTitle', on_delete=models.CASCADE)
 
 """
