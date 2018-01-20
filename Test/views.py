@@ -9,3 +9,4 @@ def user_info(request, user_id):
     user.username
     print("request received")
     pass
+
