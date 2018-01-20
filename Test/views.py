@@ -90,11 +90,9 @@ def game_view(request, game_id):
     stats = Stat.objects.filter(char_inst__char__game=game)
 
     games_played = stats.count()
-    wins = stats.aggregate(Sum('wins'))
-    if wins['wins__sum']:
-        losses = games_played - wins['wins__sum']
-    else:
-        losses = None
+    wins = stats.filter(wins=1).count()
+
+    losses = games_played - wins
 
     kills = stats.aggregate(Sum('kills'))
     deaths = stats.aggregate(Sum('deaths'))
@@ -124,11 +122,10 @@ def character_view(request, character_id):
     stats = Stat.objects.filter(char_inst_id=character_id)
 
     games_played = stats.count()
-    wins = stats.aggregate(Sum('wins'))
-    if wins['wins__sum']:
-        losses = games_played - wins['wins__sum']
-    else:
-        losses = None
+    wins = stats.filter(wins=True).count()
+
+    losses = games_played - wins
+
 
     kills = stats.aggregate(Sum('kills'))
     deaths = stats.aggregate(Sum('deaths'))
@@ -155,17 +152,16 @@ def addStat(request, character_id):
 
     if request.method == 'POST':
 
-        wins = request.POST['Win']
+        char = CharInst.objects.get(pk=character_id)
+
+        win = request.POST['win']
         kills = request.POST['kills']
         deaths = request.POST['deaths']
-        dam_given = request.POST['damage given']
-        dam_taken = request.POST['damage taken']
+        dam_given = request.POST['given']
+        dam_taken = request.POST['received']
 
-        q = Stat(wins=wins, kills=kills, deaths=deaths, damage_dealt=dam_given, damage_received=dam_taken)
-        q.char_inst.id = character_id
+        q = Stat(wins=win, kills=kills, deaths=deaths, damage_dealt=dam_given, damage_received=dam_taken)
+        q.char_inst = char
         q.save()
 
-        return render(request, 'game_page.html', {'game': game})
-
-    else:
-        render(request, 'stat_form.html', {'character_id': character_id})
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
