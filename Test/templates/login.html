@@ -18,6 +18,7 @@
         <img class="loginImg" src="{% static "admin/img/Stat Smash.png" %}" width="200" height= "200" alt="Stat Smash Logo">
         <h1>Stat Smash</h1>
     <form  action="/login/" method="post">
+
         {% csrf_token %}
         <input type="text" name="username" required><br>
         <input type="password" name="password" required><br>
@@ -25,6 +26,8 @@
     </form>
 
     <a href="/register/">Register</a>
+
     </div>
+
 </body>
 </html>
