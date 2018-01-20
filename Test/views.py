@@ -16,7 +16,7 @@ def index(request):
     if request.user.is_authenticated:
         games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
 
-        return render(request, 'stat_form.html', {'games': games})
+        return render(request, 'index.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
