@@ -151,7 +151,7 @@ def character_view(request, character_id):
     return render(request, 'character_page.html', context)
 
 
-def stat_form(request, character_id):
+def addStat(request, character_id):
 
     if request.method == 'POST':
 
