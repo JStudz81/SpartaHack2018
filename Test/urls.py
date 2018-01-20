@@ -29,7 +29,8 @@ urlpatterns = [
     path('character/<int:character_id>', views.character_view, name='character'),
     path('<int:user_id>/', views.user_info, name='User stats'),
     path('addGame/', views.addGame, name='addGame'),
-    path('addStat/<int:character_id>', views.addStat, name='addStat')
+    path('addStat/<int:character_id>', views.addStat, name='addStat'),
+    path('addCharacter/<int:game_id>', views.addCharacter, name='addCharacter')
     #path('<int:char_id>/', views.char)
 ]
 
