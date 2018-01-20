@@ -1,22 +1,23 @@
-
-from . import models
-import db.sqlite3
-
-from Test.models.py import Stat
+from .models import Stat, Character
+from django.db.models import Sum
+from django.contrib.auth.models import User
 
 def total_kills(char_or_user):
+    char = Character.objects.get(name=char_or_user)
 
-    if Stat.objects.filter(name=char_or_user):
-        n = Stat.objects.filter(name=char_or_user).get().id
-        group = Stat.objects.filter(char_inst.char_id = n)
-        kills = group.objects.aggregate(Sum(Stat.kills))
+    if char:
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        kills = n.aggregate(Sum('kills'))
+        return kills
 
-    if Stat.objects.filter(username=str(char_or_user)):
-        n = Stat.objects.filter(username=str(char_or_user)).get().id
-        group = Stat.objects.filter(char_inst.char_id = n)
-        kills = group.objects.aggregate(Sum(Stat.kills))\
+    char = User.objects.get(username=char_or_user)
 
-    return kills
+    if char:
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
+        kills = n.aggregate(Sum('kills'))
+        return kills
+
+
 
 """
 def most_kills(char_or_user):
