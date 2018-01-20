@@ -70,6 +70,8 @@ def wl_ratio(char_or_user):
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
         num_losses = n.count() - num_wins
+        if num_losses < 1:
+            return num_wins
         return (num_wins/num_losses)
 
 
@@ -79,6 +81,8 @@ def wl_ratio(char_or_user):
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
         num_losses = n.count() - num_wins
+        if num_losses < 1:
+            return num_wins
         return (num_wins/num_losses)
 
 

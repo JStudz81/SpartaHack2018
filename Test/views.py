@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from .models import Character, CharInst
 from .models import GameTitle, Stat
 from django.db.models import Sum
+from . import stats
 
 
 
@@ -24,13 +25,21 @@ def index(request):
 
 def user_info(request, user_id):
     games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
-    user_games = GameTitle.objects.filter(characters__char_insts__user=user_id)
-    user_stats = Stat.objects.filter(char_inst__user_id=user_id)
+    user = User.objects.get(pk=user_id)
+    user_games = GameTitle.objects.filter(characters__char_insts__user_id=user_id).all().distinct()
+    user_stats = Stat.objects.filter(char_inst__user_id=user_id).all()
+    numGames = user_stats.count()
 
     context = {
+        'user': user,
         'user_games': user_games,
         'user_stats': user_stats,
-        'games': games
+        'games': games,
+        'wins': stats.num_wins(user.username),
+        'wlRatio': stats.wl_ratio(user.username),
+        'numGames': numGames,
+        'losses': numGames - stats.num_wins(user.username),
+
     }
 
     return render(request, 'user.html', context)
@@ -38,13 +47,21 @@ def user_info(request, user_id):
 def character_info(request, character_id):
     games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
     character = Character.objects.get(pk=character_id)
-    character_game = GameTitle.objects.filter(characters__name__exact=character.name)
-    character_stats = Stat.objects.filter(char_inst__char_id=character_id)
+    character_game = GameTitle.objects.filter(characters__name__exact=character.name).get()
+    character_stats = Stat.objects.filter(char_inst__char_id=character_id).all()
+    numGames = character_stats.count()
+
 
     context = {
-        'character_games': character_game,
+        'char': character,
+        'character_game': character_game,
         'character_stats': character_stats,
-        'games': games
+        'games': games,
+        'wins': stats.num_wins(character.name),
+        'wlRatio': stats.wl_ratio(character.name),
+        'numGames': numGames,
+        'losses': numGames - stats.num_wins(character.name),
+
     }
 
     return render(request, 'character.html', context)
@@ -112,7 +129,7 @@ def game_view(request, game_id):
     stats = Stat.objects.filter(char_inst__char__game=game)
 
     games_played = stats.count()
-    wins = stats.filter(wins=1).count()
+    wins = stats.filter(wins=True).count()
 
     losses = games_played - wins
 

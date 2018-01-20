@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-    {{ user_games }}<br>
-    {{ user_stats }}
+    <h2><b>{{ user.username }}</b></h2>
+
+    <div>
+        <ul>
+            <li>Games Played: {{ numGames }}</li>
+            <li>Wins: {{ wins }}</li>
+            <li>Losses: {{ losses }}</li>
+            <li>W/L Ratio: {{ wlRatio }}</li>
+
+        </ul>
+
+        <h3>Games I play</h3>
+        <ul>
+            {% for game in user_games %}
+                <li>{{ game.game_title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
