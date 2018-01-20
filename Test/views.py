@@ -150,18 +150,22 @@ def character_view(request, character_id):
 
     return render(request, 'character_page.html', context)
 
-"""
-def stat_form(request):
+
+def stat_form(request, character_id):
 
     if request.method == 'POST':
 
-        win = request.POST['Win']
+        wins = request.POST['Win']
         kills = request.POST['kills']
         deaths = request.POST['deaths']
         dam_given = request.POST['damage given']
         dam_taken = request.POST['damage taken']
 
-        
-        return render(request, 'game_page.html', {'game': game})
-"""
+        q = Stat(wins=wins, kills=kills, deaths=deaths, damage_dealt=dam_given, damage_received=dam_taken)
+        q.char_inst.id = character_id
+        q.save()
 
+        return render(request, 'game_page.html', {'game': game})
+
+    else:
+        render(request, 'stat_form.html', {'character_id': character_id})

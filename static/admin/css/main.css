@@ -60,6 +60,16 @@ body{
 .sidenav a:hover {
     color: red;
 }
+label {
+    color: white;
+    font-weight: bold;
+    display: block;
+    width: 160 px;
+    float:left;
+}
+input{
+    width: 80%
+}
 #nav{
     width: 60%;
     display: inline-block;
