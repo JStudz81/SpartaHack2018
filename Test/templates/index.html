@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+
     <meta charset="UTF-8">
     <title>Stat Smash</title>
 
     <meta name="authStator" content="your name" />
     <meta name="description" content="" />
 
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="{% static "admin/css/main.css" %}" type="text/css" />
 
 </head>
 <body>
     <div id="page">
         <div id="logo">
+            <img src="Stat Smash.png" alt="Stat Smash Logo">
             <h1><a href="/" id="logoLink">Stat Smash</a></h1>
+            <!--<h1><a href="http://"><img src = "Stat Smash.png"</a></h1>-->
         </div>
         <div id="nav">
             <ul>
-                <li><a href="#/home.html">Home</a></li>
+                <li><a href="/">Home</a></li>
             </ul>
         </div>
+        <div class="sidenav">
+            <a href="#">Super Smash Bros.</a>
+            <a href="#">Rainbow 6 Siege</a>
+            <a href="#">Add New Game</a>
+        </div>
+        <span onlcick="openNav()">open</span>
         <div id="content">
-            <h2>Hope</h2>
+            <h2>Home</h2>
             <p>
-                Hey guys this is a test to see if it works. I love you!
+                Welcome to Stat Smash!
             </p>
             <p>
-                Stat Smash is a website designed to keep track of you and your friends statistics across multiple games and platforms.
+                Stat Smash is a website designed to keep track of you and your friends statistics across multiple games and platforms. Simply add a game in the menus and begin to record data such as win/loss, kill/death, damage given, damage taken, and even specific data for each character!
             </p>
         </div>
         <div id="footer">
