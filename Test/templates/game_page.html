@@ -35,14 +35,13 @@
                 <input type="submit" value="Add!">
             </form>
         </div>
-
     </div>
     <div class="tab">
-    <ul>
         {% for char in chars %}
-            <li><a href="/character/{{ char.id }}">{{ char.char.name }}</a></li>
+            <button class="tablinks">
+            <a href="/character/{{ char.id }}">{{ char.char.name }}</a>
+            </button>
         {% endfor %}
-    </ul>
 
         <form action="/addCharacter/{{ game.id }}" method="post">
             {% csrf_token %}
@@ -50,9 +49,10 @@
             <input type="text" name="name" id="name">
             <input type="submit" value="Add Character!">
         </form>
+
     </div>
 
-    <div>
+    <div class="master_stats">
         <ul>
             <li>Games Played: {{ games_played }}</li>
             <li>Wins: {{ wins.wins__sum }}</li>
