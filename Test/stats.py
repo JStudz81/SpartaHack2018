@@ -6,7 +6,7 @@ Returns the collection of objects that have the highest number of kills
 '''
 def most_kills(char_or_user):
     max_kills = 0
-    specific_col = models.Stat.objects.select_related(char_or_user)
+    specific_col = models.Stat.objects.filter(username =char_or_user)
     for character in specific_col:
         max_kills = 0
         max_kills
