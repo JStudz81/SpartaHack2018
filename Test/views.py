@@ -18,7 +18,7 @@ def index(request):
         games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
 
 
-        return render(request, 'stat_form.html', {'games': games})
+        return render(request, 'index.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
