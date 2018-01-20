@@ -15,11 +15,12 @@ class Character(models.Model):
 
     name = models.CharField(max_length=30)
 
+    game = models.ForeignKey(GameTitle, on_delete = models.CASCADE, related_name='characters')
 
     def __str__(self):
         return self.name
 
-    game = models.ManyToManyField(GameTitle)
+
 
 ### INSTANCES ###
 
@@ -29,8 +30,11 @@ class CharInst(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='users')
     char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='char_insts')
 
+    char_inst = [user, char]
+
     def __str__(self):
-        return self.user.username + ": " + self.char.name
+        #return self.user.username + ": " + self.char.name
+        return self.char_inst
 
 
 class Stat(models.Model):
