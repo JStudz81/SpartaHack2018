@@ -1,3 +1,10 @@
+#login{
+    display:table;
+    width:100%;
+}
+
+
+
 p{ line-height: 1em;}
 h1{
     color:black;
@@ -49,6 +56,7 @@ body{
     background-color: black;
     overflow-x: hidden;
     padding-top: 20px;
+    color: white;
 }
 .sidenav a{
     padding: 6px 8px 6px 16px;
@@ -60,15 +68,17 @@ body{
 .sidenav a:hover {
     color: red;
 }
-label {
-    color: white;
-    font-weight: bold;
-    display: block;
-    width: 160 px;
-    float:left;
-}
-input{
-    width: 80%
+.sidenav {
+    label {
+        color: white;
+        font-weight:bold;
+        display: block;
+        width: 160px;
+        float:left;
+    }
+    input {
+        width: 80%;
+    }
 }
 #nav{
     width: 60%;
@@ -105,7 +115,7 @@ input{
     margin:0px 10px 10px 10px
 }
 .tab button {
-    dispaly: block;
+    display: block;
     background-color: inherit;
     color: black;
     padding: 22px 16px;
@@ -125,10 +135,19 @@ input{
 .master_stats {
     float: left;
     padding: 0 12px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     width: 70%;
     border-left: none;
     height: 300px;
+}
+.input_stats{
+    label{
+        color: black;
+        font-weight:normal;
+        display: block;
+        width: 160 px;
+        float:center;
+    }
 }
 #content{
     margin: 30px 0;
