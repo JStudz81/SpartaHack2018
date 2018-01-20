@@ -3,34 +3,36 @@ from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
 
+
+
+class GameTitle(models.Model):
+    game_title = models.CharField(max_length=50)
+    def __str__(self):
+        return self.game_title
+
+
 class Character(models.Model):
 
     name = models.CharField(max_length=30)
 
+    game = models.ManyToManyField(GameTitle)
 
     def __str__(self):
         return self.name
 
-    game = models.ForeignKey(GameTitle, on_delete = models.CASCADE)
 
-class GameTitle(models.Model):
-    game_title = models.ForeignKey(Character, on_delete = models.CASCADE)
-    def __str__(self):
-        return self.game_title
 
 ### INSTANCES ###
 
 class CharInst(models.Model):
     #user_id from login
 
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    char = models.ForeignKey(Character, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='users')
+    char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='characters')
 
 
     def __str__(self):
         return self.user.username + ": " + self.char.name
-
-    game = models.ForeignKey(GameTitle, on_delete=models.CASCADE)
 
 
 class Stat(models.Model):
