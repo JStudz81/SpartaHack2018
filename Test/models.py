@@ -27,7 +27,7 @@ class CharInst(models.Model):
     #user_id from login
 
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='users')
-    char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='characters')
+    char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='char_insts')
 
     def __str__(self):
         return self.user.username + ": " + self.char.name
