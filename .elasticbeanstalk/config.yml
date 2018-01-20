@@ -2,6 +2,10 @@ branch-defaults:
   dev:
     environment: StatSmash
     group_suffix: null
+environment-defaults:
+  StatSmash:
+    branch: null
+    repository: null
 global:
   application_name: StatSmash
   branch: null
