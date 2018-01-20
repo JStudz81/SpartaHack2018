@@ -18,7 +18,7 @@ def index(request):
 
 
 
-        return render(request, 'index.html', {'games': games})
+        return render(request, 'stat_enter_form.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
