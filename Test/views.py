@@ -165,3 +165,18 @@ def addStat(request, character_id):
         q.save()
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def addCharacter(request, game_id):
+    if request.method == 'POST':
+
+        game = GameTitle.objects.get(pk=game_id)
+
+        name = request.POST['name']
+
+        char = Character.objects.create(name=name, game=game)
+        char.save()
+
+        charInst = CharInst.objects.create(user=request.user, char=char)
+        charInst.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
