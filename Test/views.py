@@ -23,10 +23,8 @@ def index(request):
         return HttpResponseRedirect('login/')
 
 def user_info(request, user_id):
-    user = User.objects.get(pk=1)
-    user.username
-    print("request received")
-    pass
+    games = GameTitle.objects.filter(characters__char_insts__user_id=user_id).distinct()
+    return render(request, 'index.html', {'games': games})
 
 def addGame(request):
     if request.method == 'POST':
@@ -180,3 +178,17 @@ def addCharacter(request, game_id):
         charInst.save()
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def search(request):
+    if request.method == 'POST':
+        param = request.POST['search']
+
+        try:
+            user = User.objects.get(username=param)
+        except:
+            try:
+                character = Character.objects.get(name=param)
+            except:
+                return HttpResponseRedirect('/')
+
+        return
