@@ -6,15 +6,15 @@ from django.utils import timezone
 class Character(models.Model):
 
     name = models.CharField(max_length=30)
-
+    game = models.ForeignKey(GameTitle, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
-    game = models.ForeignKey('GameTitle', on_delete = models.CASCADE)
 
 class GameTitle(models.Model):
     game_title = models.CharField(max_length=50)
+    char = models.ForeignKey(Character, on_delete=models.CASCADE)
     def __str__(self):
         return self.game_title
 
