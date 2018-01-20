@@ -68,18 +68,19 @@ body{
 .sidenav a:hover {
     color: red;
 }
-.sidenav {
-    label {
-        color: white;
-        font-weight:bold;
-        display: block;
-        width: 160px;
-        float:left;
-    }
-    input {
-        width: 80%;
-    }
+.sidenav label {
+    color: white;
+    font-weight: bold;
+    display: block;
+    width: 160px;
+    float: left;
 }
+
+.sidenav input {
+    width: 85%;
+}
+
+
 #nav{
     width: 60%;
     display: inline-block;
@@ -106,7 +107,7 @@ body{
     background-color: red;
     width: 20%;
     height: 300px;
-    margin: 62px 0px 0px 0px;
+    margin: 25px 0px 0px 0px;
     overflow-y: auto;
 
 }

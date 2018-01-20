@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-
+<h2>
+{{ game.game_title }}
+</h2>
 
     <div class="tab">
         {% for char in chars %}
@@ -26,7 +28,7 @@
     <div class="master_stats">
         <ul>
             <li>Games Played: {{ games_played }}</li>
-            <li>Wins: {{ wins.wins__sum }}</li>
+            <li>Wins: {{ wins }}</li>
             <li>Losses: {{ losses }}</li>
             <li>Kills: {{ kills.kills__sum }}</li>
             <li>Deaths: {{ deaths.deaths__sum }}</li>
