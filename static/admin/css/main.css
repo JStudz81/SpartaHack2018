@@ -8,9 +8,9 @@
 p{ line-height: 1em;}
 h1{
     color:black;
-    font-weight:normal;
+    font-weight:bold;
     line-height: 4em;
-    margin: 0 0 .5em 0;
+    margin: 0 0 .5em 540px;
 }
 h2, h3, h4{
     color: red;
@@ -26,6 +26,14 @@ h2, h3, h4{
     position: relative;
     top:18px;
     left: 10px;
+}
+.coverpic img{
+    position: absolute;
+    margin-left: 210px;
+    top: 10px;
+    width: 70%;
+    height: 26.1%;
+    opacity: 0.6;
 }
 h1{ font-size: 3.5em;}
 h2{ font-size: 2.3em;}
@@ -126,6 +134,7 @@ body{
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 18px;
 }
 .tab button:hover {
     background-color: #ddd;
@@ -140,6 +149,7 @@ body{
     width: 70%;
     border-left: none;
     height: 300px;
+    font-size: 20px;
 }
 .input_stats{
     label{
