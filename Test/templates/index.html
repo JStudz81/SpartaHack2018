@@ -24,7 +24,7 @@
         </div>
         <div class="sidenav">
             {% for game in games %}
-                <a href="/{{ game.game_title }}">{{ game.game_title }}.</a>
+                <a href="/game/{{ game.id }}">{{ game.game_title }}.</a>
             {% endfor %}
             <a href="/addGame/">+ Add Game</a>
         </div>
