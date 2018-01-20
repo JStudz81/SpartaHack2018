@@ -11,6 +11,13 @@
 
         </ul>
 
+    <h3>Characters I play the Most</h3>
+        <ol>
+            {% for char, num in chars_played  %}
+                <li>{{ char }} : {{ num }}</li>
+            {% endfor %}
+        </ol>
+
         <h3>Games I play</h3>
         <ul>
             {% for game in user_games %}

@@ -2,6 +2,7 @@ from .models import Stat, Character
 from django.db.models import Sum
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+import operator
 
 
 
@@ -84,5 +85,20 @@ def wl_ratio(char_or_user):
         if num_losses < 1:
             return num_wins
         return (num_wins/num_losses)
+
+def rank(user_id):
+    chars = Character.objects.filter(char_insts__user_id=user_id).all()
+
+    rank = {}
+
+    for char in chars:
+        rank[char.name] = Stat.objects.filter(char_inst__char_id=char.id).count()
+
+    sorted_list = sorted(rank.items(), key=operator.itemgetter(1), reverse=True)
+
+    return sorted_list
+
+
+
 
 
