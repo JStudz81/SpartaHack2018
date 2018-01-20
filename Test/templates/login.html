@@ -5,6 +5,7 @@
     <title>Login</title>
 </head>
 <body>
+<div id="login">
     <form action="/login/" method="post">
         {% csrf_token %}
         <input type="text" name="username" required><br>
@@ -13,5 +14,6 @@
     </form>
 
     <a href="/register/">Register</a>
+</div>
 </body>
 </html>
