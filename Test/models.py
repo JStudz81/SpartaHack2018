@@ -1,8 +1,14 @@
 from django.db import models
 
 
+
 class Character(models.Model):
+
     name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
     #game_id = models.ForeignKey('GameTitle', on_delete = models.CASCADE)
 
 #class GameTitle(models.Model):
