@@ -102,8 +102,8 @@ def game_view(request, game_id):
     return render(request, 'game_page.html', context)
 
 
-def character_view():
-    return
+def character_view(request, character_id):
+    return HttpResponseRedirect('/')
 
 """
 def stat_form(request):
