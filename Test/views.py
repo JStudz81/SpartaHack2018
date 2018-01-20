@@ -5,3 +5,4 @@ def index(request):
     return render(request, 'index.html', {})
 
 def user_info(request, user_id):
+    users.objects.get(user_id)
