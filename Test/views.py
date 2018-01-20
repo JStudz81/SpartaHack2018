@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 import logging
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
+
 
 
 from django.contrib.auth.models import User
@@ -12,7 +14,6 @@ def index(request):
         return render(request, 'index.html', {})
     else:
         return HttpResponseRedirect('login/')
-
 
 def user_info(request, user_id):
     return
