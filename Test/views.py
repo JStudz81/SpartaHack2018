@@ -13,9 +13,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     if request.user.is_authenticated:
-        games = GameTitle.objects.filter(character__characters__user=request.user).distinct()
-
-
+        games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
 
         return render(request, 'index.html', {'games': games})
     else:
@@ -68,6 +66,6 @@ def register_view(request):
 
 def game_view(request, game_id):
     game = GameTitle.objects.get(pk=game_id)
-
+    games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
     return render(request, 'game_page.html', {'game': game})
 
