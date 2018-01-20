@@ -36,6 +36,9 @@
             </form>
         </div>
     </div>
+
+
+
     <div class="tab">
         {% for char in chars %}
             <a href="/character/{{ char.id }}">
@@ -45,13 +48,15 @@
             </a>
         {% endfor %}
 
+
+        <div class="tabAdd">
         <form action="/addCharacter/{{ game.id }}" method="post">
             {% csrf_token %}
             <label for="name">New Character</label>
             <input type="text" name="name" id="name">
             <input type="submit" value="Add Character!">
         </form>
-
+            </div>
     </div>
 
     <div class="master_stats">
