@@ -85,7 +85,7 @@ def register_view(request):
 def game_view(request, game_id):
     game = GameTitle.objects.get(pk=game_id)
     games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
-    chars = game.characters.all()
+    chars = CharInst.objects.filter(char__game_id=game.id)
 
     stats = Stat.objects.filter(char_inst__char__game=game)
 
@@ -118,7 +118,37 @@ def game_view(request, game_id):
 
 
 def character_view(request, character_id):
-    return HttpResponseRedirect('/')
+    games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
+    char_inst = CharInst.objects.get(pk=character_id)
+    char = Character.objects.filter(char_insts=char_inst).get().name
+    stats = Stat.objects.filter(char_inst_id=character_id)
+
+    games_played = stats.count()
+    wins = stats.aggregate(Sum('wins'))
+    if wins['wins__sum']:
+        losses = games_played - wins['wins__sum']
+    else:
+        losses = None
+
+    kills = stats.aggregate(Sum('kills'))
+    deaths = stats.aggregate(Sum('deaths'))
+    damageDealt = stats.aggregate(Sum('damage_dealt'))
+    damageReceived = stats.aggregate(Sum('damage_received'))
+
+    context = {
+        'games': games,
+        'character_id': character_id,
+        'char_name': char,
+        'games_played': games_played,
+        'wins': wins,
+        'losses': losses,
+        'kills': kills,
+        'deaths': deaths,
+        'damageDealt': damageDealt,
+        'damageReceived': damageReceived
+    }
+
+    return render(request, 'character_page.html', context)
 
 """
 def stat_form(request):
