@@ -19,9 +19,6 @@ def user_info(request, user_id):
     return
 
 def showLogin(request):
-    logger = logging.getLogger(__name__)
-
-    logger.info('logging')
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -31,14 +28,14 @@ def showLogin(request):
 
         if user is not None:
             login(request, user)
-            logger.info('Made it')
+
             # Redirect to a success page.
             return HttpResponseRedirect('/')
 
         else:
             # Return an 'invalid login' error message.
             ...
-            logger.info('no Made it')
+
             return render(request, 'login.html', {})
 
     else:
@@ -47,3 +44,16 @@ def showLogin(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/login/')
+
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = User.objects.create_user(username, email, password)
+
+        return HttpResponseRedirect('/login/')
+
+    else:
+        return render(request, 'register.html', {})

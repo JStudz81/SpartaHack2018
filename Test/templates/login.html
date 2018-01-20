@@ -7,9 +7,11 @@
 <body>
     <form action="/login/" method="post">
         {% csrf_token %}
-        <input type="text" name="username"><br>
-        <input type="password" name="password"><br>
+        <input type="text" name="username" required><br>
+        <input type="password" name="password" required><br>
         <input type="submit" value="Submit">
     </form>
+
+    <a href="/register/">Register</a>
 </body>
 </html>
