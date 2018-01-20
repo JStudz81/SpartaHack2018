@@ -66,3 +66,8 @@ def register_view(request):
     else:
         return render(request, 'register.html', {})
 
+def game_view(request, game_id):
+    game = GameTitle.objects.get(pk=game_id)
+
+    return render(request, 'game_page.html', {'game': game})
+
