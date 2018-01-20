@@ -86,6 +86,7 @@ def wl_ratio(char_or_user):
             return num_wins
         return (num_wins/num_losses)
 
+
 def rank(user_id):
     chars = Character.objects.filter(char_insts__user_id=user_id).all()
 
@@ -101,9 +102,7 @@ def rank(user_id):
 
 
 
-
 def total_games(user_string):
     # all the times the user has played
     user = Stat.objects.filter(char_inst__user__username=user_string).all()
     return user.count()
-
