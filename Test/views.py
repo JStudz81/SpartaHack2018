@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 import logging
@@ -21,9 +22,10 @@ def index(request):
         return HttpResponseRedirect('login/')
 
 def user_info(request, user_id):
-    # Test.models.objects.get(request)
-    print("Found request")
-    return
+    user = User.objects.get(pk=1)
+    user.username
+    print("request received")
+    pass
 
 def showLogin(request):
 
@@ -99,5 +101,22 @@ def game_view(request, game_id):
     }
     return render(request, 'game_page.html', context)
 
+
 def character_view():
     return
+
+"""
+def stat_form(request):
+
+    if request.method == 'POST':
+
+        win = request.POST['Win']
+        kills = request.POST['kills']
+        deaths = request.POST['deaths']
+        dam_given = request.POST['damage given']
+        dam_taken = request.POST['damage taken']
+
+        
+        return render(request, 'game_page.html', {'game': game})
+"""
+
