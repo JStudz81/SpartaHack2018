@@ -1,19 +1,25 @@
 p{ line-height: 1em;}
-h1, h2, h3, h4{
+h1{
+    color:black;
+    font-weight:normal;
+    line-height: 4em;
+    margin: 0 0 .5em 0;
+}
+h2, h3, h4{
     color: red;
     font-weight: normal;
     line-height: 1.1em;
     margin: 0 0 .5em 0;
 }
+
 img{
     float:left;
 }
-h1{ font-size: 2.5em;}
 h1{
     float:right;
 }
-/*h1 img{float:left;margin:0 5px 0 0}*/
-h2{ font-size: 1.75em;}
+h1{ font-size: 3.5em;}
+h2{ font-size: 2.3em;}
 a{
     color:black;
     a:active{ text-decoration: none;}
@@ -22,7 +28,7 @@ a{
     a:active{ text-decoration: underline; }
 
 body{
-    font-family:arial; font-size: 80%; line-height: 1.5em; width: 85%; margin: 0; background: #eee; margin-left:160px; padding: 0px 10px;
+    font-family:arial; font-size: 90%; line-height: 1.5em; width: 85%; margin: 0; background: #eee; margin-left:160px; padding: 0px 10px;
 }
 #page{ margin:20px;}
 #logo{
