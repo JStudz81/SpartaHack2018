@@ -42,5 +42,5 @@ class Stat(models.Model):
     deaths = models.PositiveIntegerField(default=0)
     damage_dealt = models.PositiveIntegerField(default=0)
     damage_received = models.PositiveIntegerField(default=0)
-    char_inst = models.ForeignKey(CharInst, on_delete=models.CASCADE)
+    char_inst = models.ForeignKey(CharInst, on_delete=models.CASCADE, related_name='stats')
     time_stamp = timezone.now()
