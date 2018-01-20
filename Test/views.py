@@ -16,7 +16,7 @@ def index(request):
     if request.user.is_authenticated:
         games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
 
-        return render(request, 'stat_enter_form.html', {'games': games})
+        return render(request, 'stat_form.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
@@ -71,3 +71,17 @@ def game_view(request, game_id):
     games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
     return render(request, 'game_page.html', {'game': game})
 
+"""
+def stat_form(request):
+
+    if request.method == 'POST':
+
+        win = request.POST['Win']
+        kills = request.POST['kills']
+        deaths = request.POST['deaths']
+        dam_given = request.POST['damage given']
+        dam_taken = request.POST['damage taken']
+
+        
+        return render(request, 'game_page.html', {'game': game})
+"""
