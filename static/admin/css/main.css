@@ -13,6 +13,7 @@ h2, h3, h4{
 }
 .header img{
     float: left;
+    margin: 10px;
 }
 .header h1{
     position: relative;
