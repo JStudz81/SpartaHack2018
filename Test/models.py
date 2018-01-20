@@ -29,7 +29,6 @@ class CharInst(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name='users')
     char = models.ForeignKey(Character, on_delete = models.CASCADE, related_name='characters')
 
-
     def __str__(self):
         return self.user.username + ": " + self.char.name
 
