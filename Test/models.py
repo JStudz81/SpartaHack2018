@@ -15,7 +15,7 @@ class Character(models.Model):
 
     name = models.CharField(max_length=30)
 
-    game = models.ManyToManyField(GameTitle)
+    game = models.ForeignKey(GameTitle, on_delete = models.CASCADE, related_name='characters')
 
     def __str__(self):
         return self.name
