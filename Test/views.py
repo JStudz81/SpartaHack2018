@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 import logging
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from .models import Character, CharInst
 
 
 
@@ -16,6 +17,8 @@ def index(request):
         return HttpResponseRedirect('login/')
 
 def user_info(request, user_id):
+    # Test.models.objects.get(request)
+    print("Found request")
     return
 
 def showLogin(request):
