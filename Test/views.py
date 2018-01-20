@@ -5,7 +5,8 @@ import logging
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import Character, CharInst
-from .models import GameTitle
+from .models import GameTitle, Stat
+from django.db.models import Sum
 
 
 
@@ -67,5 +68,36 @@ def register_view(request):
 def game_view(request, game_id):
     game = GameTitle.objects.get(pk=game_id)
     games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
-    return render(request, 'game_page.html', {'game': game})
+    chars = game.character_set.all()
 
+    stats = Stat.objects.filter(char_inst__char__game=game)
+
+    games_played = stats.count()
+    wins = stats.aggregate(Sum('wins'))
+    if wins['wins__sum']:
+        losses = games_played - wins['wins__sum']
+    else:
+        losses = None
+
+    kills = stats.aggregate(Sum('kills'))
+    deaths = stats.aggregate(Sum('deaths'))
+    damageDealt = stats.aggregate(Sum('damage_dealt'))
+    damageReceived = stats.aggregate(Sum('damage_received'))
+
+
+    context = {
+        'game': game,
+        'games': games,
+        'chars': chars,
+        'games_played': games_played,
+        'wins': wins,
+        'losses': losses,
+        'kills': kills,
+        'deaths': deaths,
+        'damageDealt': damageDealt,
+        'damageReceived': damageReceived
+    }
+    return render(request, 'game_page.html', context)
+
+def character_view():
+    return

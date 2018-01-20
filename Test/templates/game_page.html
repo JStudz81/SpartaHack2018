@@ -27,5 +27,26 @@
             {% endfor %}
             <a href="/addGame/">+ Add Game</a>
         </div>
+
+    </div>
+    <div>
+        <ul>
+        {% for char in chars %}
+            <li><a href="/character/{{ char.id }}">{{ char }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li>Games Played: {{ games_played }}</li>
+            <li>Wins: {{ wins.wins__sum }}</li>
+            <li>Losses: {{ losses }}</li>
+            <li>Kills: {{ kills.kills__sum }}</li>
+            <li>Deaths: {{ deaths.deaths__sum }}</li>
+            <li>Damage Dealt: {{ damageDealt.damage_dealt__sum }}</li>
+            <li>Damage Received: {{ damageReceived.damage_received__sum }}</li>
+        </ul>
+    </div>
 </body>
 </html>
