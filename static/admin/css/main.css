@@ -77,7 +77,7 @@ input{
     float: right;
 }
 #nav {
-            diplay: inline-block;
+            display: inline-block;
             height: 62px;
         }
             #nav a{
@@ -96,6 +96,7 @@ input{
     background-color: red;
     width: 20%;
     height: 300px;
+    margin: 62px 0px 0px 0px;
 }
 .tab button {
     dispaly: block;
