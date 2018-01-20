@@ -33,8 +33,8 @@ class CharInst(models.Model):
     char_inst = [user, char]
 
     def __str__(self):
-        #return self.user.username + ": " + self.char.name
-        return self.char_inst
+        return self.user.username + ": " + self.char.name
+        #return self.char_inst
 
 
 class Stat(models.Model):
