@@ -1,6 +1,6 @@
 from django.db import models
 
-
+from django.contrib.auth.models import User
 
 class Character(models.Model):
 
@@ -17,7 +17,7 @@ class Character(models.Model):
 ### INSTANCES ###
 
 class CharInst(models.Model):
-    user_id = models.ForeignKey('User', on_delete = models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
     #game_id = models.ForeignKey('GameTitle', on_delete=models.CASCADE)
 
 """
