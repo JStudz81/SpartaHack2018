@@ -104,7 +104,9 @@ db.sqlite3
 # mypy
 .mypy_cache/
 
-.idea/
+/.idea
+
+*.iws
 
 # Elastic Beanstalk Files
 
