@@ -6,7 +6,7 @@
 
 
 p{ line-height: 1em;}
-h1{
+.header h1{
     color:black;
     font-weight:bold;
     line-height: 4em;
@@ -174,17 +174,24 @@ body{
         text-align: right;
         text-transform: uppercase;
         font-size: 80%;
-        color: grey:
+        color: grey;
     }
 #content
 ul li a{box-shadow: 0px 1px 1px #999;}
 
 .login{
-    width: 21%;
-    height: 200px;
-    margin: 0 auto;
-}
+    text-align: center;
+    width: 90%;
 
+}
 .loginImg{
-    margin: 20px 20px 10px 10px;
+    margin: 40px 20px 10px 20px;
+}
+.fire img{
+    width: 100%;
+    opacity: .7;
+    margin-left: auto;
+    margin-right:auto;
+    background-position: center bottom;
+
 }
