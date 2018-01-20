@@ -23,8 +23,32 @@ def index(request):
         return HttpResponseRedirect('login/')
 
 def user_info(request, user_id):
-    games = GameTitle.objects.filter(characters__char_insts__user_id=user_id).distinct()
-    return render(request, 'index.html', {'games': games})
+    games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
+    user_games = GameTitle.objects.filter(characters__char_insts__user=user_id)
+    user_stats = Stat.objects.filter(char_inst__user_id=user_id)
+
+    context = {
+        'user_games': user_games,
+        'user_stats': user_stats,
+        'games': games
+    }
+
+    return render(request, 'user.html', context)
+
+def character_info(request, character_id):
+    games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
+    character = Character.objects.get(pk=character_id)
+    character_game = GameTitle.objects.filter(characters__name__exact=character.name)
+    character_stats = Stat.objects.filter(char_inst__char_id=character_id)
+
+    context = {
+        'character_games': character_game,
+        'character_stats': character_stats,
+        'games': games
+    }
+
+    return render(request, 'character.html', context)
+
 
 def addGame(request):
     if request.method == 'POST':
@@ -182,13 +206,12 @@ def addCharacter(request, game_id):
 def search(request):
     if request.method == 'POST':
         param = request.POST['search']
-
         try:
             user = User.objects.get(username=param)
+            return HttpResponseRedirect('/user/' + str(user.id))
         except:
             try:
                 character = Character.objects.get(name=param)
+                return HttpResponseRedirect('/character_info/' + str(character.id))
             except:
                 return HttpResponseRedirect('/')
-
-        return
