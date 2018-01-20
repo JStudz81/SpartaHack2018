@@ -100,6 +100,43 @@ def wl_ratio(char_or_user):
             return num_wins
         return (num_wins/num_losses)
 
+
+def dmg_ratio(char_or_user):
+    if temp_search(char_or_user):
+        char = Character.objects.get(name=char_or_user)
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        dmg_given = n.aggregate(Sum('damage_dealt'))
+        dmg_given = dmg_given['damage_dealt__sum']
+        dmg_taken = n.aggregate(Sum('damage_received'))
+        dmg_taken = dmg_taken['damage_received__sum']
+        if dmg_taken < 1:
+            return dmg_given
+        return round(dmg_given/dmg_taken, 3)
+
+def dmg_per_kill(char_or_user):
+    if temp_search(char_or_user):
+        char = Character.objects.get(name=char_or_user)
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        dmg_given = n.aggregate(Sum('damage_dealt'))
+        dmg_given = dmg_given['damage_dealt__sum']
+        kills = n.aggregate(Sum('kills'))
+        kills = kills['kills__sum']
+        if kills < 1:
+            return dmg_given
+        return round(dmg_given/kills, 3)
+
+def dmg_per_death(char_or_user):
+    if temp_search(char_or_user):
+        char = Character.objects.get(name=char_or_user)
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        dmg_taken = n.aggregate(Sum('damage_received'))
+        dmg_taken = dmg_taken['damage_received__sum']
+        deaths = n.aggregate(Sum('deaths'))
+        deaths = deaths['deaths__sum']
+        if deaths < 1:
+            return dmg_taken
+        return round(dmg_taken/deaths, 3)
+
 def rank(user_id):
     chars = Character.objects.filter(char_insts__user_id=user_id).all()
 
