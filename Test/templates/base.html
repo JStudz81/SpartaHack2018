@@ -23,6 +23,8 @@
                 <a href="/logout/">Logout</a>
         </div>
         <div class="sidenav">
+
+        <h3> My Games</h3>
             {% for game in games %}
                 <a href="/game/{{ game.id }}">{{ game.game_title }}</a>
             {% endfor %}
