@@ -104,8 +104,13 @@ db.sqlite3
 # mypy
 .mypy_cache/
 
-.idea/
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+.idea/
+
+# Elastic Beanstalk Files
+
+.elasticbeanstalk/
+
+!.elasticbeanstalk/*.cfg.yml
+
+!.elasticbeanstalk/*.global.yml
+
