@@ -30,6 +30,8 @@ def user_info(request, user_id):
     user_stats = Stat.objects.filter(char_inst__user_id=user_id).all()
     numGames = user_stats.count()
 
+    chars_played_most = stats.rank(user.id)
+
     context = {
         'user': user,
         'user_games': user_games,
@@ -39,7 +41,7 @@ def user_info(request, user_id):
         'wlRatio': stats.wl_ratio(user.username),
         'numGames': numGames,
         'losses': numGames - stats.num_wins(user.username),
-
+        'chars_played': chars_played_most[:10]
     }
 
     return render(request, 'user.html', context)
