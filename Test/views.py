@@ -15,7 +15,8 @@ from django.contrib.auth.models import User
 
 def index(request):
     if request.user.is_authenticated:
-        games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
+        games = GameTitle.objects.filter(characters__char_insts__user_id=request.user.id).distinct()
+
 
         return render(request, 'index.html', {'games': games})
     else:
@@ -26,6 +27,20 @@ def user_info(request, user_id):
     user.username
     print("request received")
     pass
+
+def addGame(request):
+    if request.method == 'POST':
+        game = GameTitle.objects.create()
+        game.game_title = request.POST['game']
+        game.save()
+
+        char = Character(name=request.POST['char'], game_id=game.id)
+        char.save()
+
+        char_inst = CharInst(char_id=char.id, user_id=request.user.id)
+        char_inst.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def showLogin(request):
 
@@ -69,8 +84,8 @@ def register_view(request):
 
 def game_view(request, game_id):
     game = GameTitle.objects.get(pk=game_id)
-    games = GameTitle.objects.filter(character__char_insts__user=request.user).distinct()
-    chars = game.character_set.all()
+    games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
+    chars = game.characters.all()
 
     stats = Stat.objects.filter(char_inst__char__game=game)
 
