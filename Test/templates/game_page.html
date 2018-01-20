@@ -38,9 +38,11 @@
     </div>
     <div class="tab">
         {% for char in chars %}
+            <a href="/character/{{ char.id }}">
             <button class="tablinks">
-            <a href="/character/{{ char.id }}">{{ char.char.name }}</a>
+            {{ char.char.name }}
             </button>
+            </a>
         {% endfor %}
 
         <form action="/addCharacter/{{ game.id }}" method="post">
