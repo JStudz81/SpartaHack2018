@@ -26,7 +26,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register_view, name='register'),
     path('game/<int:game_id>', views.game_view, name='game'),
-    path('character/<int:character_id', views.character_view, name='character'),
+    path('character/<int:character_id>', views.character_view, name='character'),
     path('<int:user_id>/', views.user_info, name='User stats')
     #path('<int:char_id>/', views.char)
 ]
