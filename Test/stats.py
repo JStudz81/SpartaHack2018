@@ -1,24 +1,74 @@
 from .models import Stat, Character
 from django.db.models import Sum
 from django.contrib.auth.models import User
-
+from django.core.exceptions import ObjectDoesNotExist
+'''
+Calculates total kills per user or character
+'''
 def total_kills(char_or_user):
-    char = Character.objects.get(name=char_or_user)
-
+    char = ''
+    try:
+        char = Character.objects.get(name=char_or_user)
+    except ObjectDoesNotExist:
+        pass
     if char:
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
         kills = n.aggregate(Sum('kills'))
+        kills = kills['kills__sum']
         return kills
 
-    char = User.objects.get(username=char_or_user)
+    user = User.objects.get(username=char_or_user)
 
-    if char:
+    if user:
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         kills = n.aggregate(Sum('kills'))
+        kills = kills['kills__sum']
         return kills
+'''
+Calculates total amount of wins per user of character
+'''
+def num_wins(char_or_user):
+    char = ''
+    try:
+        char = Character.objects.get(name=char_or_user)
+    except ObjectDoesNotExist:
+        pass
+    if char:
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        num_wins = n.aggregate(Sum('wins'))
+        num_wins = num_wins['wins__sum']
+        return num_wins
 
+    user = User.objects.get(username=char_or_user)
+    if user:
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
+        num_wins = n.aggregate(Sum('wins'))
+        num_wins = num_wins['wins__sum']
+        return num_wins
 
+'''
+Calculates the win loss ratio per user or character
+'''
+def wl_ratio(char_or_user):
+    char = ''
+    try:
+        char = Character.objects.get(name=char_or_user)
+    except ObjectDoesNotExist:
+        pass
+    if char:
+        n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        num_wins = n.aggregate(Sum('wins'))
+        num_wins = num_wins['wins__sum']
+        num_losses = n.count() - num_wins
+        return (num_wins/num_losses)
 
+    user = User.objects.get(username=char_or_user)
+    if user:
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
+        num_wins = n.aggregate(Sum('wins'))
+        num_wins = num_wins['wins__sum']
+        num_losses = n.count() - num_wins
+        return (num_wins/num_losses)
 """
 def most_kills(char_or_user):
     ""
