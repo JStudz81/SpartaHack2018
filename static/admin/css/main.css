@@ -96,6 +96,7 @@ input{
     background-color: red;
     width: 20%;
     height: 300px;
+    overflow-y: auto;
 }
 .tab button {
     dispaly: block;
