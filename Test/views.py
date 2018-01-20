@@ -5,6 +5,7 @@ import logging
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import Character, CharInst
+from .models import GameTitle
 
 
 
@@ -12,7 +13,11 @@ from django.contrib.auth.models import User
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'index.html', {})
+        games = GameTitle.objects.filter(character__characters__user=request.user).distinct()
+
+
+
+        return render(request, 'index.html', {'games': games})
     else:
         return HttpResponseRedirect('login/')
 
