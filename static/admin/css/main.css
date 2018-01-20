@@ -156,4 +156,13 @@ input{
 #content
 ul li a{box-shadow: 0px 1px 1px #999;}
 
+.login{
+    width: 23%;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.loginImg{
+    margin: 20px 20px 10px 10px;
+}
 
