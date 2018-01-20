@@ -1,6 +1,9 @@
 from django.db import models
 
 
+    def __str__(self):
+        return self.username
+
 class Character(models.Model):
 
     name = models.CharField(max_length=30)
