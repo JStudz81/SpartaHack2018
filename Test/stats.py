@@ -36,9 +36,10 @@ def total_kills(char_or_user):
 def total_kills_b(char, user):
     char = Character.objects.get(name=char)
     user = User.objects.get(username=user)
-    CharInst.user = user
-    CharInst.char = char
-    CharInst.objects.get()
+    n = Stat.objects.filter(char_inst__user_id=user.id).all()
+    kills = n.aggregate(Sum('kills'))
+    kills = kills['kills__sum']
+    return kills
 
 
 '''
