@@ -18,8 +18,8 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', view.index, name ='index')
-    path('<int:char_id>/', view.char)
+    path('', views.index, name ='index'),
+    #path('<int:char_id>/', views.char)
 ]
 
 #testing gitignore
