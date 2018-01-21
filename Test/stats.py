@@ -147,11 +147,31 @@ def dmg_ratio(char_or_user):
         if dmg_taken < 1:
             return dmg_given
         return round(dmg_given/dmg_taken, 3)
+    else:
+        user = User.objects.get(username=char_or_user)
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
+        dmg_given = n.aggregate(Sum('damage_dealt'))
+        dmg_given = dmg_given['damage_dealt__sum']
+        dmg_taken = n.aggregate(Sum('damage_received'))
+        dmg_taken = dmg_taken['damage_received__sum']
+        if dmg_taken < 1:
+            return dmg_given
+        return round(dmg_given/dmg_taken, 3)
 
 def dmg_per_kill(char_or_user):
     if temp_search(char_or_user):
         char = Character.objects.get(name=char_or_user)
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
+        dmg_given = n.aggregate(Sum('damage_dealt'))
+        dmg_given = dmg_given['damage_dealt__sum']
+        kills = n.aggregate(Sum('kills'))
+        kills = kills['kills__sum']
+        if kills < 1:
+            return dmg_given
+        return round(dmg_given/kills, 3)
+    else:
+        user = User.objects.get(username=char_or_user)
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
         dmg_given = n.aggregate(Sum('damage_dealt'))
         dmg_given = dmg_given['damage_dealt__sum']
         kills = n.aggregate(Sum('kills'))
@@ -171,6 +191,16 @@ def dmg_per_death(char_or_user):
         if deaths < 1:
             return dmg_taken
         return round(dmg_taken/deaths, 3)
+    else:
+        user = User.objects.get(username=char_or_user)
+        n = Stat.objects.filter(char_inst__user_id=user.id).all()
+        dmg_taken = n.aggregate(Sum('damage_received'))
+        dmg_taken = dmg_taken['damage_received__sum']
+        deaths = n.aggregate(Sum('deaths'))
+        deaths = deaths['deaths__sum']
+        if deaths < 1:
+            return dmg_taken
+        return round(dmg_taken / deaths, 3)
 
 
 def rank(user_id):
@@ -203,7 +233,6 @@ def kd_dict_maker(user_string):
     for stat in user_stats:
         if stat.char_inst.char.id not in kills_dict:
             kills_dict[stat.char_inst.char.id] = [stat.kills, stat.deaths]
-            print(kills_dict)
         else:
             kills_dict[stat.char_inst.char.id][0] += stat.kills
             kills_dict[stat.char_inst.char.id][1] += stat.deaths
@@ -227,7 +256,6 @@ def wl_dict_maker(user_string):
         else:
             wins_dict[stat.char_inst.char.id][0] += int(stat.wins)
             wins_dict[stat.char_inst.char.id][1] += int(not stat.deaths)
-    print(wins_dict)
     for key, value in wins_dict.items():
         if(value[1] != 0):
             wins_dict[key] = round(value[0]/value[1], 3)
@@ -251,11 +279,3 @@ def best_wl(wins_dict):
     max_keys = [k for k, v in wins_dict.items() if v == max_value]
     return (max_value, max_keys)
 
-def pnum_calc(user_string):
-    user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
-    kd_dict = kd_dict_maker(user_string)
-    wl_dict = wl_dict_maker(user_string)
-    pnum_dict = {}
-    for key, value in kd_dict.items():
-        pnum_dict[key] = value*wl_dict[key]*dmg_ratio(user_string)
-    return pnum_dict
