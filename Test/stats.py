@@ -42,6 +42,7 @@ def total_kills_b(char, user):
     kills = kills['kills__sum']
     return kills
 
+
 '''
 Calculates the K/D Ratio of a certain character for a user
 '''
@@ -55,6 +56,32 @@ def kd_ratio(char, user):
     deaths = deaths['deaths__sum']
     return round(kills/deaths, 3)
 
+
+def kd_avg():
+    # average kd over all characters (weighted according to play)
+    m = Stat.objects.all()
+    kills = m.aggregate(Sum('kills'))
+    deaths = m.aggregate(Sum('deaths'))
+    kills = kills['kills__sum']
+    deaths = deaths['deaths__sum']
+    return round(kills/deaths, 3)
+
+
+def kd_rank(user_id):
+    m = User.objects.all()
+
+    rank = {}
+    print('havent broken', m)
+
+    for n in m:
+        print(n)
+        rank[n.username] = Stat.objects.filter(char_inst__user_id=user_id).count()
+
+    sorted_list = sorted(rank.items(), key=operator.itemgetter(1), reverse=True)
+
+    return sorted_list
+
+
 '''
 Calculates total amount of wins per user of character
 '''
@@ -65,6 +92,8 @@ def num_wins(char_or_user):
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         return num_wins
 
     else:
@@ -72,6 +101,8 @@ def num_wins(char_or_user):
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         return num_wins
 
 '''
@@ -84,6 +115,8 @@ def wl_ratio(char_or_user):
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         num_losses = n.count() - num_wins
         if num_losses < 1:
             return num_wins
@@ -95,6 +128,8 @@ def wl_ratio(char_or_user):
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         num_losses = n.count() - num_wins
         if num_losses < 1:
             return num_wins
@@ -137,6 +172,7 @@ def dmg_per_death(char_or_user):
             return dmg_taken
         return round(dmg_taken/deaths, 3)
 
+
 def rank(user_id):
     chars = Character.objects.filter(char_insts__user_id=user_id).all()
 
@@ -148,7 +184,6 @@ def rank(user_id):
     sorted_list = sorted(rank.items(), key=operator.itemgetter(1), reverse=True)
 
     return sorted_list
-
 
 
 

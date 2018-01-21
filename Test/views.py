@@ -71,12 +71,13 @@ def character_info(request, character_id):
 
 def addGame(request):
     if request.method == 'POST':
-        game = GameTitle.objects.create()
-        game.game_title = request.POST['game']
-        game.save()
+        game, created = GameTitle.objects.get_or_create(game_title=request.POST['game'])
+        if created:
+            game.save()
 
-        char = Character(name=request.POST['char'], game_id=game.id)
-        char.save()
+        char, created = Character.objects.get_or_create(name=request.POST['char'], game_id=game.id)
+        if created:
+            char.save()
 
         char_inst = CharInst(char_id=char.id, user_id=request.user.id)
         char_inst.save()
@@ -234,3 +235,16 @@ def search(request):
                 return HttpResponseRedirect('/character_info/' + str(character.id))
             except:
                 return HttpResponseRedirect('/')
+def battles():
+    return
+
+def allGames(request):
+    games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
+    allGames = GameTitle.objects.all()
+
+    context = {
+        'allGames': allGames,
+        'games': games
+    }
+
+    return render(request, "allGames.html", context)

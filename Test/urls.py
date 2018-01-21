@@ -33,6 +33,8 @@ urlpatterns = [
     path('addStat/<int:character_id>', views.addStat, name='addStat'),
     path('addCharacter/<int:game_id>', views.addCharacter, name='addCharacter'),
     path('search/', views.search, name='search'),
+    path('battles/', views.battles, name='battles'),
+    path('allGames/', views.allGames, name='allGames'),
     #path('<int:char_id>/', views.char)
 ]
 
