@@ -235,3 +235,5 @@ def search(request):
                 return HttpResponseRedirect('/character_info/' + str(character.id))
             except:
                 return HttpResponseRedirect('/')
+def battles():
+    return
