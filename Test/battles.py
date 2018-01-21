@@ -27,9 +27,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 import operator
 from . import stats
+import numpy as np
 
-
-def Handicap():
+def Handicap(p1,c1,p2,c2):
 
     """
     Parameters: p1DR , p1KD, p1WL, p2DR, p2KD, p2WL
@@ -46,7 +46,7 @@ def Handicap():
     p2KD = kd_ratio(p2, c2)
     p2WL = wl_ratio(p2)
     
-    return np.round([p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL), p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA)**(1/p2WL)])
+    return [round(0.5*p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL)), round*(0.5*p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA)**(1/p2WL))]
 
 
 def pnum_calc(user_string):
