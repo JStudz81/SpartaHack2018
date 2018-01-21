@@ -237,3 +237,14 @@ def search(request):
                 return HttpResponseRedirect('/')
 def battles():
     return
+
+def allGames(request):
+    games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
+    allGames = GameTitle.objects.all()
+
+    context = {
+        'allGames': allGames,
+        'games': games
+    }
+
+    return render(request, "allGames.html", context)
