@@ -1,6 +1,6 @@
 from Test.models import *
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # KD and WL Graph
 
@@ -10,9 +10,9 @@ def graph(user, time_slot):
     """
 
     x = Stat.objects.filter(char_inst__char_id=user)
-    x.get('time_stamp')
-    y = Stat.objects.filter(char_inst__char_id=user)
-    y.get()
+    x.objects.get('time_stamp')
+    #y = Stat.objects.filter(char_inst__char_id=user)
+    #y.get()
 
 
 

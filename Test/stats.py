@@ -75,7 +75,7 @@ def kd_rank(user_id):
 
     for n in m:
         print(n)
-        rank[n.name] = Stat.objects.filter(char_inst__char_id=char.id).count()
+        rank[n.username] = Stat.objects.filter(char_inst__user_id=user_id).count()
 
     sorted_list = sorted(rank.items(), key=operator.itemgetter(1), reverse=True)
 
