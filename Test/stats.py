@@ -137,6 +137,7 @@ def wl_ratio(char_or_user):
 
 
 def dmg_ratio(char_or_user):
+    #damage ratio
     if temp_search(char_or_user):
         char = Character.objects.get(name=char_or_user)
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
@@ -149,6 +150,7 @@ def dmg_ratio(char_or_user):
         return round(dmg_given/dmg_taken, 3)
 
 def dmg_per_kill(char_or_user):
+    #damage per kill
     if temp_search(char_or_user):
         char = Character.objects.get(name=char_or_user)
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
@@ -161,6 +163,7 @@ def dmg_per_kill(char_or_user):
         return round(dmg_given/kills, 3)
 
 def dmg_per_death(char_or_user):
+    # damage taken per death
     if temp_search(char_or_user):
         char = Character.objects.get(name=char_or_user)
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
