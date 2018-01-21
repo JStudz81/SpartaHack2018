@@ -236,7 +236,7 @@ def search(request):
             except:
                 return HttpResponseRedirect('/')
 def battles(request):
-    return HttpResponse("<h1>FUCK YOU NATE</h1>")
+    return HttpResponse("<h1>FUCK YOU JACK</h1>")
 
 def allGames(request):
     games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
