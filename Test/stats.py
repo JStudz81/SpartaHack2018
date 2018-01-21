@@ -157,3 +157,67 @@ def total_games(user_string):
     # all the times the user has played
     user = Stat.objects.filter(char_inst__user__username=user_string).all()
     return user.count()
+
+
+'''
+returns a dictionary with the character id's as keys and the k/d ratio as values
+'''
+def kd_dict_maker(user_string):
+    user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
+    kills_dict = {}
+    for stat in user_stats:
+        if stat.char_inst.char.id not in kills_dict:
+            kills_dict[stat.char_inst.char.id] = [stat.kills, stat.deaths]
+            print(kills_dict)
+        else:
+            kills_dict[stat.char_inst.char.id][0] += stat.kills
+            kills_dict[stat.char_inst.char.id][1] += stat.deaths
+    for key, value in kills_dict.items():
+        if(value[1] != 0):
+            kills_dict[key] = round(value[0]/value[1], 3)
+        else:
+            kills_dict[key] = value[0]
+    return kills_dict
+
+'''
+returns a dictionary with the character id's as keys and the w/l ratio as values
+'''
+def wl_dict_maker(user_string):
+    user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
+    wins_dict = {}
+    for stat in user_stats:
+        if stat.char_inst.char.id not in wins_dict:
+            wins_dict[stat.char_inst.char.id] = [int(stat.wins), int(not stat.wins)]
+
+        else:
+            wins_dict[stat.char_inst.char.id][0] += int(stat.wins)
+            wins_dict[stat.char_inst.char.id][1] += int(not stat.deaths)
+    print(wins_dict)
+    for key, value in wins_dict.items():
+        if(value[1] != 0):
+            wins_dict[key] = round(value[0]/value[1], 3)
+        else:
+            wins_dict[key] = value[0]
+    return wins_dict
+
+'''
+returns the highest kd for a users character, and the id of the character(s) that has the kd.
+'''
+def best_kd(kills_dict):
+    max_value = max(kills_dict.values())  # maximum value
+    max_keys = [k for k, v in kills_dict.items() if v == max_value]
+    return (max_value, max_keys)
+
+'''
+returns the highest wl for a users character, and the id of the character(s) that has the wl.
+'''
+def best_wl(wins_dict):
+    max_value = max(wins_dict.values())  # maximum value
+    max_keys = [k for k, v in wins_dict.items() if v == max_value]
+    return (max_value, max_keys)
+
+def pnum_calc(user_string):
+    user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
+    kd_dict = kd_dict_maker(user_string)
+    wl_dict = wl_dict_maker(user_string)
+    pnums_dict
