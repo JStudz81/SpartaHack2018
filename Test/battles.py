@@ -15,10 +15,22 @@ Teams
 
 """
 
+
 from Test.models import *
 from Test.stats import *
 
 def Handicap(p1, c1, p2, c2):
+
+from .models import Stat, Character
+from django.db.models import Sum
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+import operator
+from . import stats
+
+
+def Handicap():
+
     """
     Parameters: p1DR , p1KD, p1WL, p2DR, p2KD, p2WL
     (p1 is person on the left, p2 is person on the right)
@@ -37,6 +49,14 @@ def Handicap(p1, c1, p2, c2):
     return np.round([p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL), p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA)**(1/p2WL)])
 
 
-
-def RandomPlayer():
-    pass
+def pnum_calc(user_string):
+    user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
+    kd_dict = stats.kd_dict_maker(user_string)
+    wl_dict = stats.wl_dict_maker(user_string)
+    pnum_dict = {}
+    for key, value in kd_dict.items():
+        print(value)
+        print(wl_dict[key])
+        print(stats.dmg_ratio(user_string))
+        pnum_dict[key] = value * wl_dict[key] * stats.dmg_ratio(user_string)
+    return pnum_dict
