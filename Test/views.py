@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 import logging
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -235,8 +235,8 @@ def search(request):
                 return HttpResponseRedirect('/character_info/' + str(character.id))
             except:
                 return HttpResponseRedirect('/')
-def battles():
-    return
+def battles(request):
+    return HttpResponse("<h1>FUCK YOU JACK</h1>")
 
 def allGames(request):
     games = GameTitle.objects.filter(characters__char_insts__user=request.user).distinct()
