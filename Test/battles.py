@@ -18,16 +18,9 @@ Teams
 
 from Test.models import *
 from Test.stats import *
-
-def Handicap(p1, c1, p2, c2):
-
-from .models import Stat, Character
-from django.db.models import Sum
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-import operator
+from .models import Stat
 from . import stats
-import numpy as np
+
 
 def Handicap(p1,c1,p2,c2):
 
@@ -39,14 +32,15 @@ def Handicap(p1,c1,p2,c2):
 
     p1DB = dmg_per_kill(p1)
     p1DA = dmg_per_death(p1)
-    p1KD = kd_ratio(p1, c1)
+    p1KD = kd_ratio(c1, p1)
     p1WL = wl_ratio(p1)
-    p2DB = dmg_per_kill(p2)
+    p2DB = dmg_per_kill(c2)
     p2DA = dmg_per_death(p2)
-    p2KD = kd_ratio(p2, c2)
+    p2KD = kd_ratio(c2, p2)
     p2WL = wl_ratio(p2)
-    
+
     return [round(0.5*p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL)), round*(0.5*p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA)**(1/p2WL))]
+
 
 
 def pnum_calc(user_string):
