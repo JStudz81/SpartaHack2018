@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
@@ -30,7 +29,7 @@ SECRET_KEY = 'vn7%y6o+ppsc+om#b9_ftzcpywjcd7cvn6c%kr#d3g!%b*^ygd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['statsmash3.ckgywns42d.us-east-1.elasticbeanstalk.com', '127.0.0.1']
 
 
 # Application definition

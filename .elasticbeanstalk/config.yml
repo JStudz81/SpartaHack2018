@@ -1,22 +1,30 @@
 branch-defaults:
   dev:
-    environment: StatSmash
+    environment: null
     group_suffix: null
+  prod2:
+    environment: StatSmash3
 environment-defaults:
   StatSmash:
     branch: null
     repository: null
+  StatSmash2:
+    branch: prod2
+    repository: StatSmash2
+  StatSmash3:
+    branch: prod2
+    repository: StatSmash2
 global:
-  application_name: StatSmash
-  branch: null
+  application_name: StatSmash2
+  branch: prod2
   default_ec2_keyname: aws-eb
-  default_platform: python2.7
+  default_platform: python3.6
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
   profile: eb-cli
-  repository: null
+  repository: StatSmash2
   sc: git
   workspace_type: Application
