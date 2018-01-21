@@ -98,8 +98,7 @@ ENV/
 # mkdocs documentation
 /site
 
-#db stuff
-db.sqlite3
+
 
 # mypy
 .mypy_cache/
