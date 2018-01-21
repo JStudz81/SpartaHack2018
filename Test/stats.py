@@ -220,4 +220,7 @@ def pnum_calc(user_string):
     user_stats = Stat.objects.filter(char_inst__user__username=user_string).filter().all()
     kd_dict = kd_dict_maker(user_string)
     wl_dict = wl_dict_maker(user_string)
-    pnums_dict
+    pnum_dict = {}
+    for key, value in kd_dict.items():
+        pnum_dict[key] = value*wl_dict[key]*dmg_ratio(user_string)
+    return pnum_dict
