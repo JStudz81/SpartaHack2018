@@ -20,6 +20,7 @@ from Test.models import *
 from Test.stats import *
 from .models import Stat, Character
 from . import stats
+import random
 
 
 def handicap(p1,c1,p2,c2):
@@ -38,7 +39,7 @@ def handicap(p1,c1,p2,c2):
     p2KD = kd_ratio(c2, p2)
     p2WL = wl_ratio(p2)
     
-    return [0.5*round(p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL)), 0.5*round(p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA))**(1/p2WL)]
+    return [round(0.5*p2KD/p1KD*abs(p2DB/p1DB - p2DA/p1DA)**(1/p1WL)), round(0.5*p1KD/p2KD*abs(p1DB/p2DB - p1DA/p2DA))**(1/p2WL)]
 
 
 def pnum_calc(user_string):
@@ -47,8 +48,33 @@ def pnum_calc(user_string):
     wl_dict = stats.wl_dict_maker(user_string)
     pnum_dict = {}
     for key, value in kd_dict.items():
-        print(value)
-        print(wl_dict[key])
-        print(stats.dmg_ratio(user_string))
+        #print(value)
+        #print(wl_dict[key])
+        #print(stats.dmg_ratio(user_string))
         pnum_dict[key] = value * wl_dict[key] * stats.dmg_ratio(user_string)
     return pnum_dict
+
+
+def match_finder(user_string1, user_string2):
+
+    length = 10
+
+    pnum1 = pnum_calc(user_string1)
+    pnum2 = pnum_calc(user_string2)
+
+    for r in range(7):
+        c = random.choice(pnum1.keys())
+        random.choice(list(pnum1.items()))
+
+        d = random.choice(pnum2.keys())
+        random.choice(list(pnum2.items()))
+
+        if abs(c[1]-d[1]) < length:
+            a=c
+            b=d
+            length = abs(b[1]-a[1])
+        else:
+            continue
+
+
+    return(a[0],b[0])
