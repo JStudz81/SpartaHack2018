@@ -65,6 +65,8 @@ def num_wins(char_or_user):
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         return num_wins
 
     else:
@@ -72,6 +74,8 @@ def num_wins(char_or_user):
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         return num_wins
 
 '''
@@ -84,6 +88,8 @@ def wl_ratio(char_or_user):
         n = Stat.objects.filter(char_inst__char_id=char.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         num_losses = n.count() - num_wins
         if num_losses < 1:
             return num_wins
@@ -95,6 +101,8 @@ def wl_ratio(char_or_user):
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         num_wins = n.aggregate(Sum('wins'))
         num_wins = num_wins['wins__sum']
+        if not num_wins:
+            return 0
         num_losses = n.count() - num_wins
         if num_losses < 1:
             return num_wins
