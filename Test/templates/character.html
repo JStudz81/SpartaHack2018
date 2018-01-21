@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2><b>{{ char.name }}</b> from <b>{{ character_game.game_title}}</b></h2>
+
+    <div>
+        <ul>
+            <li>Games Played: {{ numGames }}</li>
+            <li>Wins: {{ wins }}</li>
+            <li>Losses: {{ losses }}</li>
+            <li>W/L Ratio: {{ wlRatio }}</li>
+
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+        <h2>{{ char_name }}</h2>
+
+    <div>
+        <ul>
+            <li>Games Played: {{ games_played }}</li>
+            <li>Wins: {{ wins }}</li>
+            <li>Losses: {{ losses }}</li>
+            <li>Kills: {{ kills.kills__sum }}</li>
+            <li>Deaths: {{ deaths.deaths__sum }}</li>
+            <li>Damage Dealt: {{ damageDealt.damage_dealt__sum }}</li>
+            <li>Damage Received: {{ damageReceived.damage_received__sum }}</li>
+        </ul>
+    </div>
+
+    <div class="input_stats">
+        <form method="post" action="/addStat/{{ character_id }}">
+            {% csrf_token %}
+            <label for="win">Win:</label>
+            <input type="radio" id="win" name="win" value="1">
+
+            <label for="loss">Loss:</label>
+            <input type="radio" id="loss" name="win" value="0">
+
+            <label for="kills">Kills:</label>
+            <input type="number" id="kills" name="kills">
+
+            <label for="deaths">Deaths:</label>
+            <input type="number" id="deaths" name="deaths">
+
+            <label for="given">Damage Given:</label>
+            <input type="number" id="given" name="given">
+
+            <label for="received">Damage Received:</label>
+            <input type="number" id="received" name="received">
+
+            <input type="submit" value="Add Stat!">
+        </form>
+    </div>
+
+{% endblock %}

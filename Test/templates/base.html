@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Stat Smash</title>
+
+    <meta name="authStator" content="your name" />
+    <meta name="description" content="" />
+
+    <link rel="stylesheet" href="{% static "admin/css/main.css" %}" type="text/css" />
+
+</head>
+<body>
+        <div class="header">
+            <img src="{% static "admin/img/Stat Smash.png" %}" width="200" height= "200" alt="Stat Smash Logo">
+            <h1>Stat Smash</h1>
+        </div>
+        <div class="coverpic">
+            <img src="{% static "admin/img/Mario Fighting.png" %}" width="100%">
+        </div>
+    <div id="page">
+        <div id="nav">
+                <a href="/">Home</a>
+                <a href="/logout/">Logout</a>
+        </div>
+        <div class="sidenav">
+
+        <h3> My Games</h3>
+            {% for game in games %}
+                <a href="/game/{{ game.id }}">{{ game.game_title }}</a>
+            {% endfor %}
+            <br>
+            <form action="/addGame/" method="post">
+                {% csrf_token %}
+                <label for="addGame">Add Title: </label>
+                <input id="addGame" type="text" name="game" required><br>
+                <label for="addGame">Add Character: </label>
+                <input id="addChar" type="text" name="char" required><br>
+                <input type="submit" value="Add!">
+            </form>
+        <br>
+        <h2><a href="/allGames/">Games</a></h2>
+        <h2><a href="/battles/">Battles</a></h2>
+        </div>
+    </div>
+
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

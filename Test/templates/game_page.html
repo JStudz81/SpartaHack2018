@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>
+{{ game.game_title }}
+</h2>
+
+    <div class="tab">
+        {% for char in chars %}
+            <a href="/character/{{ char.id }}">
+            <button class="tablinks">
+            {{ char.char.name }}
+            </button>
+            </a>
+        {% endfor %}
+
+
+        <div class="tabAdd">
+        <form action="/addCharacter/{{ game.id }}" method="post">
+            {% csrf_token %}
+            <label for="name">New Character</label>
+            <input type="text" name="name" id="name">
+            <input type="submit" value="Add Character!">
+        </form>
+            </div>
+    </div>
+
+    <div class="master_stats">
+        <ul>
+            <li>Games Played: {{ games_played }}</li>
+            <li>Wins: {{ wins }}</li>
+            <li>Losses: {{ losses }}</li>
+            <li>Kills: {{ kills.kills__sum }}</li>
+            <li>Deaths: {{ deaths.deaths__sum }}</li>
+            <li>Damage Dealt: {{ damageDealt.damage_dealt__sum }}</li>
+            <li>Damage Received: {{ damageReceived.damage_received__sum }}</li>
+        </ul>
+    </div>
+{% endblock %}
