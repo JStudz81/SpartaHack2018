@@ -176,6 +176,7 @@ def dmg_per_kill(char_or_user):
         n = Stat.objects.filter(char_inst__user_id=user.id).all()
         dmg_given = n.aggregate(Sum('damage_dealt'))
         dmg_given = dmg_given['damage_dealt__sum']
+
         kills = n.aggregate(Sum('kills'))
         kills = kills['kills__sum']
         if kills < 1:
